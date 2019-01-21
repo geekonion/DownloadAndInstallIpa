@@ -13,8 +13,6 @@
 		C81F9FAD1EAF4824008C7FEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C81F9FAB1EAF4824008C7FEC /* Main.storyboard */; };
 		C81F9FAF1EAF4824008C7FEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81F9FAE1EAF4824008C7FEC /* Assets.xcassets */; };
 		C81F9FB21EAF4824008C7FEC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C81F9FB01EAF4824008C7FEC /* LaunchScreen.storyboard */; };
-		C81F9FBD1EAF4825008C7FEC /* DemoDownloadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F9FBC1EAF4825008C7FEC /* DemoDownloadTests.m */; };
-		C81F9FC81EAF4825008C7FEC /* DemoDownloadUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F9FC71EAF4825008C7FEC /* DemoDownloadUITests.m */; };
 		C8406F5A1F282B9F003A098D /* DownloadDelegateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C8406F551F282B9F003A098D /* DownloadDelegateHandler.m */; };
 		C8406F5B1F282B9F003A098D /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8406F571F282B9F003A098D /* DownloadManager.m */; };
 		C8406F5C1F282B9F003A098D /* OneDownloadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C8406F591F282B9F003A098D /* OneDownloadItem.m */; };
@@ -60,24 +58,8 @@
 		C87BBE541EC2E88A00AEC464 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C87BBE381EC2E88A00AEC464 /* WebSocket.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C81F9FB91EAF4825008C7FEC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C81F9F971EAF4824008C7FEC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C81F9F9E1EAF4824008C7FEC;
-			remoteInfo = DemoDownload;
-		};
-		C81F9FC41EAF4825008C7FEC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C81F9F971EAF4824008C7FEC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C81F9F9E1EAF4824008C7FEC;
-			remoteInfo = DemoDownload;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		5AB8E78521F1FB6700315241 /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		C81F9F9F1EAF4824008C7FEC /* DemoDownload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoDownload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81F9FA31EAF4824008C7FEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C81F9FA51EAF4824008C7FEC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -88,12 +70,6 @@
 		C81F9FAE1EAF4824008C7FEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C81F9FB11EAF4824008C7FEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C81F9FB31EAF4824008C7FEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C81F9FB81EAF4825008C7FEC /* DemoDownloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoDownloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C81F9FBC1EAF4825008C7FEC /* DemoDownloadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoDownloadTests.m; sourceTree = "<group>"; };
-		C81F9FBE1EAF4825008C7FEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C81F9FC31EAF4825008C7FEC /* DemoDownloadUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoDownloadUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C81F9FC71EAF4825008C7FEC /* DemoDownloadUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoDownloadUITests.m; sourceTree = "<group>"; };
-		C81F9FC91EAF4825008C7FEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8406F541F282B9F003A098D /* DownloadDelegateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadDelegateHandler.h; sourceTree = "<group>"; };
 		C8406F551F282B9F003A098D /* DownloadDelegateHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadDelegateHandler.m; sourceTree = "<group>"; };
 		C8406F561F282B9F003A098D /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
@@ -189,29 +165,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C81F9FB51EAF4825008C7FEC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C81F9FC01EAF4825008C7FEC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		C81F9F961EAF4824008C7FEC = {
 			isa = PBXGroup;
 			children = (
+				5AB8E78521F1FB6700315241 /* Property List.plist */,
 				C81F9FA11EAF4824008C7FEC /* DemoDownload */,
-				C81F9FBB1EAF4825008C7FEC /* DemoDownloadTests */,
-				C81F9FC61EAF4825008C7FEC /* DemoDownloadUITests */,
 				C81F9FA01EAF4824008C7FEC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -220,8 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				C81F9F9F1EAF4824008C7FEC /* DemoDownload.app */,
-				C81F9FB81EAF4825008C7FEC /* DemoDownloadTests.xctest */,
-				C81F9FC31EAF4825008C7FEC /* DemoDownloadUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,24 +212,6 @@
 				C81F9FA31EAF4824008C7FEC /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C81F9FBB1EAF4825008C7FEC /* DemoDownloadTests */ = {
-			isa = PBXGroup;
-			children = (
-				C81F9FBC1EAF4825008C7FEC /* DemoDownloadTests.m */,
-				C81F9FBE1EAF4825008C7FEC /* Info.plist */,
-			);
-			path = DemoDownloadTests;
-			sourceTree = "<group>";
-		};
-		C81F9FC61EAF4825008C7FEC /* DemoDownloadUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C81F9FC71EAF4825008C7FEC /* DemoDownloadUITests.m */,
-				C81F9FC91EAF4825008C7FEC /* Info.plist */,
-			);
-			path = DemoDownloadUITests;
 			sourceTree = "<group>";
 		};
 		C8406F531F282B9F003A098D /* DownloadTool */ = {
@@ -445,42 +386,6 @@
 			productReference = C81F9F9F1EAF4824008C7FEC /* DemoDownload.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C81F9FB71EAF4825008C7FEC /* DemoDownloadTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C81F9FCF1EAF4825008C7FEC /* Build configuration list for PBXNativeTarget "DemoDownloadTests" */;
-			buildPhases = (
-				C81F9FB41EAF4825008C7FEC /* Sources */,
-				C81F9FB51EAF4825008C7FEC /* Frameworks */,
-				C81F9FB61EAF4825008C7FEC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C81F9FBA1EAF4825008C7FEC /* PBXTargetDependency */,
-			);
-			name = DemoDownloadTests;
-			productName = DemoDownloadTests;
-			productReference = C81F9FB81EAF4825008C7FEC /* DemoDownloadTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		C81F9FC21EAF4825008C7FEC /* DemoDownloadUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C81F9FD21EAF4825008C7FEC /* Build configuration list for PBXNativeTarget "DemoDownloadUITests" */;
-			buildPhases = (
-				C81F9FBF1EAF4825008C7FEC /* Sources */,
-				C81F9FC01EAF4825008C7FEC /* Frameworks */,
-				C81F9FC11EAF4825008C7FEC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C81F9FC51EAF4825008C7FEC /* PBXTargetDependency */,
-			);
-			name = DemoDownloadUITests;
-			productName = DemoDownloadUITests;
-			productReference = C81F9FC31EAF4825008C7FEC /* DemoDownloadUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -492,18 +397,8 @@
 				TargetAttributes = {
 					C81F9F9E1EAF4824008C7FEC = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 84K92AJVXZ;
+						DevelopmentTeam = 56MY3ZN5V7;
 						ProvisioningStyle = Automatic;
-					};
-					C81F9FB71EAF4825008C7FEC = {
-						CreatedOnToolsVersion = 8.3.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C81F9F9E1EAF4824008C7FEC;
-					};
-					C81F9FC21EAF4825008C7FEC = {
-						CreatedOnToolsVersion = 8.3.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C81F9F9E1EAF4824008C7FEC;
 					};
 				};
 			};
@@ -521,8 +416,6 @@
 			projectRoot = "";
 			targets = (
 				C81F9F9E1EAF4824008C7FEC /* DemoDownload */,
-				C81F9FB71EAF4825008C7FEC /* DemoDownloadTests */,
-				C81F9FC21EAF4825008C7FEC /* DemoDownloadUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -539,20 +432,6 @@
 				C81F9FAD1EAF4824008C7FEC /* Main.storyboard in Resources */,
 				C87BBE461EC2E88A00AEC464 /* README.txt in Resources */,
 				C87BBE3C1EC2E88A00AEC464 /* About.txt in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C81F9FB61EAF4825008C7FEC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C81F9FC11EAF4825008C7FEC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,36 +487,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C81F9FB41EAF4825008C7FEC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C81F9FBD1EAF4825008C7FEC /* DemoDownloadTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C81F9FBF1EAF4825008C7FEC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C81F9FC81EAF4825008C7FEC /* DemoDownloadUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C81F9FBA1EAF4825008C7FEC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C81F9F9E1EAF4824008C7FEC /* DemoDownload */;
-			targetProxy = C81F9FB91EAF4825008C7FEC /* PBXContainerItemProxy */;
-		};
-		C81F9FC51EAF4825008C7FEC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C81F9F9E1EAF4824008C7FEC /* DemoDownload */;
-			targetProxy = C81F9FC41EAF4825008C7FEC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C81F9FAB1EAF4824008C7FEC /* Main.storyboard */ = {
@@ -755,11 +605,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 84K92AJVXZ;
+				DEVELOPMENT_TEAM = 56MY3ZN5V7;
 				INFOPLIST_FILE = DemoDownload/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pyw.DemoDownload;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uusafe.seafile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -768,58 +618,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 84K92AJVXZ;
+				DEVELOPMENT_TEAM = 56MY3ZN5V7;
 				INFOPLIST_FILE = DemoDownload/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pyw.DemoDownload;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uusafe.seafile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		C81F9FD01EAF4825008C7FEC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = DemoDownloadTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pyw.DemoDownloadTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoDownload.app/DemoDownload";
-			};
-			name = Debug;
-		};
-		C81F9FD11EAF4825008C7FEC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = DemoDownloadTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pyw.DemoDownloadTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoDownload.app/DemoDownload";
-			};
-			name = Release;
-		};
-		C81F9FD31EAF4825008C7FEC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = DemoDownloadUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pyw.DemoDownloadUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = DemoDownload;
-			};
-			name = Debug;
-		};
-		C81F9FD41EAF4825008C7FEC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = DemoDownloadUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Pyw.DemoDownloadUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = DemoDownload;
 			};
 			name = Release;
 		};
@@ -840,24 +644,6 @@
 			buildConfigurations = (
 				C81F9FCD1EAF4825008C7FEC /* Debug */,
 				C81F9FCE1EAF4825008C7FEC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C81F9FCF1EAF4825008C7FEC /* Build configuration list for PBXNativeTarget "DemoDownloadTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C81F9FD01EAF4825008C7FEC /* Debug */,
-				C81F9FD11EAF4825008C7FEC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C81F9FD21EAF4825008C7FEC /* Build configuration list for PBXNativeTarget "DemoDownloadUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C81F9FD31EAF4825008C7FEC /* Debug */,
-				C81F9FD41EAF4825008C7FEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

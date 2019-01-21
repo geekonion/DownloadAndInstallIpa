@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+static NSString *const PurpleTag = @"PurpleTag";
 
 @interface AppDelegate ()
 
@@ -16,7 +19,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+      UIColor *purple = [UIColor colorWithRed:(64/255.0) green:(0/255.0) blue:(128/255.0) alpha:1.0];
+    DDTTYLogger *logger = [DDTTYLogger sharedInstance];
+    [logger setForegroundColor:purple backgroundColor:nil forTag:PurpleTag];
+    [DDLog addLogger:logger];
+    
     return YES;
 }
 

@@ -13,11 +13,11 @@
 #import "DownloadDelegateHandler.h"
 
 
-@interface OneDownloadItem()
-{
+@interface OneDownloadItem() {
     NSURLSession * _session;
     NSURLSessionDataTask * _task;
     NSMutableURLRequest * _mutableRequest;
+    __weak DownloadManager *_downloadManager;
 }
 
 @end
@@ -26,35 +26,34 @@
 
 MJCodingImplementation
 
--(OneDownloadItem * )initWithUrl:(NSString*)url andPlistUrl:(NSString*)plistUrl andGameName:(NSString*)gameName andGameId:(NSString*)gameId andType:(NSString*)type
-{
-    self.gameName = gameName;
-    self.gameId = gameId;
-    self.type = type;
-    self.urlString = url;
-    self.plistUrl = plistUrl;
-    self.taskProgress = 0.0f;
-    self.isFinish = NO;
-    self.currentBytesWritten = 0;
-    self.totalBytesWritten = 0;
-    self.taskDate = [NSDate date];
-    self.taskSpeed = @"0kb/s";
-    self.taskSize = @"0M";
-    self.saveName = [NSString stringWithFormat:@"%@.%@",self.gameId,self.type];
+- (OneDownloadItem * )initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type {
+    if (self = [super init]) {
+        _downloadManager = [DownloadManager manager];
+        self.gameName = gameName;
+        self.gameId = gameId;
+        self.type = type;
+        self.urlString = url;
+        self.plistUrl = plistUrl;
+        self.taskProgress = 0.0f;
+        self.isFinish = NO;
+        self.currentBytesWritten = 0;
+        self.totalBytesWritten = 0;
+        self.taskDate = [NSDate date];
+        self.taskSpeed = @"0kb/s";
+        self.taskSize = @"0M";
+        self.saveName = [NSString stringWithFormat:@"%@.%@", self.gameId, self.type];
+    }
     
     return self;
 }
 
 
--(void)initTask
-{
+- (void)creatTask {
     //获取已下载的文件大小
-    NSInteger alreadyDownloadLength = [[DownloadManager manager] getAlreadyDownloadLength:self.saveName];
+    NSInteger alreadyDownloadLength = [_downloadManager getAlreadyDownloadLength:self.saveName];
     
-    DownloadDelegateHandler * delegateHandler = [[DownloadDelegateHandler alloc]initWithItem:self];
-//    _session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:_delegateHandler delegateQueue:[NSOperationQueue mainQueue]];
+    DownloadDelegateHandler * delegateHandler = [[DownloadDelegateHandler alloc] initWithItem:self];
     _session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:delegateHandler delegateQueue:nil];
-    
     
     //这里是已经下载的小于总文件大小执行继续下载操作
     //创建mutableRequest对象
@@ -65,54 +64,45 @@ MJCodingImplementation
 }
 
 
--(void)startModelDownload
-{
+- (void)start {
     NSError *error = nil;
     //获取已下载的文件大小
-    NSInteger alreadyDownloadLength = [[DownloadManager manager] getAlreadyDownloadLength:self.saveName];
+    NSInteger downloadedLen = [_downloadManager getAlreadyDownloadLength:self.saveName];
     
     //说明已经下载完毕
-    if (alreadyDownloadLength && alreadyDownloadLength==self.totalBytesWritten)
-    {
-        //            !self.completeBlock?:self.completeBlock(XHRFilePath,nil);
+    if (downloadedLen && downloadedLen == self.totalBytesWritten) {
         //回调
         NSLog(@"finish");
-        [[DownloadManager manager] updateModel:self andStatus:DownloadStatusComplete];
+        [_downloadManager updateModel:self andStatus:DownloadStatusComplete];
         return;
     }
     //如果已经存在的文件比目标大说明下载文件错误执行删除文件重新下载
-    else if (self.totalBytesWritten < alreadyDownloadLength)
-    {
-        [[NSFileManager defaultManager]removeItemAtPath:[[DownloadManager manager] getFilePath:self.saveName] error:&error];
-        if (!error)
-        {
-            alreadyDownloadLength = 0;
-        }
-        else
-        {
+    else if (self.totalBytesWritten < downloadedLen) {
+        [[NSFileManager defaultManager] removeItemAtPath:[_downloadManager getFilePath:self.saveName] error:&error];
+        if (!error) {
+            downloadedLen = 0;
+        } else {
             NSLog(@"创建任务失败请重新开始");
             //删除文件
             return;
         }
     }
     
-    [[DownloadManager manager] updateModel:self andStatus:DownloadStatusDownloading];
-    if(!_task) [self initTask];
+    [_downloadManager updateModel:self andStatus:DownloadStatusDownloading];
+    if (!_task) [self creatTask];
     [_task resume];
 }
 
--(void)pauseModelDownload
-{
+- (void)pause {
     [_task cancel];
     [_session invalidateAndCancel];
     _session = nil;
     _task = nil;
-    [[DownloadManager manager] updateModel:self andStatus:DownloadStatusPause];
+    [_downloadManager updateModel:self andStatus:DownloadStatusPause];
 }
 
 
-- (void)dealloc
-{
+- (void)dealloc {
     NSLog(@"---OneDownloadItem---dealloc");
 }
 

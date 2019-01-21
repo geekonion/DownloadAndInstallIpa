@@ -52,7 +52,7 @@
 // The logging context can be extracted from the DDLogMessage from within the logging framework,
 // which gives loggers, formatters, and filters the ability to optionally process them differently.
 
-#define HTTP_LOG_CONTEXT 80
+#define HTTP_LOG_CONTEXT 0xff
 
 // Configure log levels.
 

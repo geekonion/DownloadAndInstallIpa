@@ -58,7 +58,7 @@
 {
     if (btn.tag == 0)
     {
-        [[DownloadManager manager] addDownloadTaskWithUrl:@"http://ooyizs7oj.bkt.clouddn.com/zhangyue.ipa"  andPlistUrl:@"https://raw.githubusercontent.com/lovelyjune/testPlist/master/zhangyue.plist" andGameName:@"zhangyue" andGameId:@"zhangyue" andType:@"ipa"];
+        [[DownloadManager manager] addDownloadTaskWithUrl:@"https://raw.githubusercontent.com/geekonion/ipaTest/master/SecMail.ipa"  andPlistUrl:@"https://raw.githubusercontent.com/geekonion/ipaTest/master/test.plist" andGameName:@"mail" andGameId:@"SecMail" andType:@"ipa"];
     }
     else if(btn.tag == 1)
     {

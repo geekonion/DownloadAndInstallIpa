@@ -50,7 +50,7 @@ typedef enum : NSUInteger
 /**
  *  下载任务进度
  */
-@property (nonatomic, assign) int64_t taskProgress;
+@property (nonatomic, assign) float taskProgress;
 
 /**
  *  任务下载速度
@@ -89,11 +89,11 @@ typedef enum : NSUInteger
 @property (nonatomic, assign) DownloadStatus downloadStatus;
 
 
--(OneDownloadItem * )initWithUrl:(NSString*)url andPlistUrl:(NSString*)plistUrl andGameName:(NSString*)gameName andGameId:(NSString*)gameId andType:(NSString*)type;
+- (OneDownloadItem * )initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type;
 
 
--(void)pauseModelDownload;
+- (void)pause;
 
--(void)startModelDownload;
+- (void)start;
 
 @end

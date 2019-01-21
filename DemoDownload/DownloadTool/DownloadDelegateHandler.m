@@ -10,39 +10,45 @@
 #import "DownloadManager.h"
 
 @interface DownloadDelegateHandler()
-@property(nonatomic,strong) NSOutputStream * stream; //下载流
-@property(nonatomic,strong) OneDownloadItem * myItem;
+@property (nonatomic, strong) NSOutputStream * stream; //下载流
+@property (nonatomic, strong) OneDownloadItem * item;
 
 @end
 
-@implementation DownloadDelegateHandler
+@implementation DownloadDelegateHandler {
+    __weak DownloadManager *_downloadManager;
+}
 
-- (instancetype)initWithItem:(OneDownloadItem*)oneItem
-{
+- (instancetype)initWithItem:(OneDownloadItem *)item {
     self = [super init];
-    if (self)
-    {
-        self.myItem = oneItem;
+    if (self) {
+        self.item = item;
+        _downloadManager = [DownloadManager manager];
     }
     return self;
 }
 
 //服务器响应以后调用的代理方法
-- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSHTTPURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler
-{
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSHTTPURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
+    NSInteger statusCode = response.statusCode;
+    if (statusCode < 200 || statusCode >= 300 ) {
+        NSLog(@"下载%@失败，错误的响应：%@", dataTask.originalRequest.URL, response);
+        completionHandler(NSURLSessionResponseAllow);
+        return;
+    }
     //接受到服务器响应
     //获取文件的全部长度
-//    NSLog(@"开始下载----Content-Length===%li,AlreadyDownloadLength===%li",[response.allHeaderFields[@"Content-Length"] integerValue],(long)[[DownloadManager manager] getAlreadyDownloadLength:self.myItem.saveName]);
+    NSLog(@"开始下载----Content-Length = %li",[response.allHeaderFields[@"Content-Length"] integerValue]);
     
-    self.myItem.totalBytesWritten = [response.allHeaderFields[@"Content-Length"] integerValue] + [[DownloadManager manager] getAlreadyDownloadLength:self.myItem.saveName];
-    self.myItem.currentBytesWritten = [[DownloadManager manager] getAlreadyDownloadLength:self.myItem.saveName];
+    _item.totalBytesWritten = [response.allHeaderFields[@"Content-Length"] integerValue] + [_downloadManager getAlreadyDownloadLength:_item.saveName];
+    _item.currentBytesWritten = [_downloadManager getAlreadyDownloadLength:_item.saveName];
 
     //保存当前的下载信息到沙盒 并刷新界面
-    [[DownloadManager manager]updateModel:self.myItem andStatus:DownloadStatusDownloading];
+    [_downloadManager updateModel:_item andStatus:DownloadStatusDownloading];
 
     //打开outputStream
     [self.stream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [self.stream open];
+    [_stream open];
     
     //调用block设置允许进一步访问
     completionHandler(NSURLSessionResponseAllow);
@@ -51,36 +57,33 @@
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
     //把服务器传回的数据用stream写入沙盒中
-    [self.stream write:data.bytes maxLength:data.length];
-    self.myItem.currentBytesWritten = [[DownloadManager manager] getAlreadyDownloadLength:self.myItem.saveName];//再获取当前文件已下载的长度
+    [_stream write:data.bytes maxLength:data.length];
+    _item.currentBytesWritten = [_downloadManager getAlreadyDownloadLength:_item.saveName];//再获取当前文件已下载的长度
 
-    self.myItem.taskProgress = (self.myItem.currentBytesWritten / self.myItem.totalBytesWritten);
+    float progress = 1.0 * _item.currentBytesWritten / _item.totalBytesWritten;
+    _item.taskProgress = progress;
 
     //保存当前的下载信息到沙盒并刷新界面 回调界面现在的下载进度
-    [[DownloadManager manager]updateModel:self.myItem andStatus:DownloadStatusDownloading];
+    [_downloadManager updateProgress];
 
-    //    NSLog(@"name:%@--progress:%lli/%lli,线程:%@",self.myItem.gameName,self.myItem.currentBytesWritten,self.myItem.totalBytesWritten,[NSThread currentThread]);
+    NSLog(@"name: %@, progress: %.2f%%", _item.gameName, 100.0 * progress);
 }
 //任务完成后调用的代理方法
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{
-    if(error)
-    {
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    if (error) {
         //暂停
         return;
-    }
-    else
-    {
+    } else {
         NSLog(@"下载完成-----没有错误");
         //保存当前的下载信息的沙盒 并回调界面完成
-        [[DownloadManager manager]updateModel:self.myItem andStatus:DownloadStatusComplete];
+        [_downloadManager updateModel:_item andStatus:DownloadStatusComplete];
         //回调告诉manager完成
-        [[DownloadManager manager] callbackDownloadComplete:self.myItem];
+        [_downloadManager callbackDownloadComplete:_item];
     }
 
     //关闭流
-    [self.stream close];
-    self.stream = nil;
+    [_stream close];
+    _stream = nil;
     //清空task
     [session invalidateAndCancel];
     task = nil;
@@ -88,18 +91,16 @@
 }
 
 
-- (NSOutputStream *)stream
-{
+- (NSOutputStream *)stream {
     if (!_stream) {
         
-        _stream = [[NSOutputStream alloc]initToFileAtPath:[[DownloadManager manager] getFilePath:self.myItem.saveName] append:YES];
+        _stream = [[NSOutputStream alloc]initToFileAtPath:[[DownloadManager manager] getFilePath:_item.saveName] append:YES];
     }
     return _stream;
 }
 
 
-- (void)dealloc
-{
+- (void)dealloc {
     NSLog(@"---DownloadDelegateHandler---dealloc");
 }
 

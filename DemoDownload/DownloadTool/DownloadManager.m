@@ -13,8 +13,8 @@
 
 @interface DownloadManager()
 
-@property (nonatomic, copy) void (^completeBlock)(OneDownloadItem*oneItem);
-@property (nonatomic, copy) void (^progressBlock)(NSArray*allItemArr);
+@property (nonatomic, copy) void (^completeBlock)(OneDownloadItem *oneItem);
+@property (nonatomic, copy) void (^progressBlock)(NSArray *allItemArr);
 @property (nonatomic, strong) HTTPServer * httpServer;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundIdentify;
 
@@ -29,17 +29,14 @@ static DownloadManager *_dataCenter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _dataCenter = [[DownloadManager alloc] init];
-        
     });
     
     return _dataCenter;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         //开始本地服务器
         [self httpServer];
         //获取之前保存的下载项 数组
@@ -56,11 +53,9 @@ static DownloadManager *_dataCenter = nil;
                                    }];
         
         //当进入时，之前队列存在的下载项所有都设置 状态暂停
-        for(OneDownloadItem * oneItem in self.allItemArray)
-        {
-            if(oneItem.downloadStatus != DownloadStatusComplete)        //未完成的，都先暂停
-            {
-                oneItem.downloadStatus = DownloadStatusPause;
+        for (OneDownloadItem * item in self.allItemArray) {
+            if (item.downloadStatus != DownloadStatusComplete) { //未完成的，都先暂停
+                item.downloadStatus = DownloadStatusPause;
             }
         }
     }
@@ -68,98 +63,80 @@ static DownloadManager *_dataCenter = nil;
 }
 
 //下载进度的回调
--(void)progressBlock:(void(^)(NSArray*allModelArr))progressBlock
-{
+- (void)progressBlock:(void(^)(NSArray *allModelArr))progressBlock {
     self.progressBlock = progressBlock;
 }
 
 //下载完成的回调
--(void)completeBlock:(void(^)(OneDownloadItem*oneItem))completeBlock
-{
+- (void)completeBlock:(void(^)(OneDownloadItem *oneItem))completeBlock {
     self.completeBlock = completeBlock;
 }
 
 // 添加任务到任务列表中
-- (void)addDownloadTaskWithUrl:(NSString *)urlString andPlistUrl:(NSString*)plistUrl andGameName:(NSString*)gameName andGameId:(NSString*)gameId andType:(NSString*)type
-{
-    if (!gameName ||!urlString ||!gameId ||!type || !plistUrl)
-    {
+- (void)addDownloadTaskWithUrl:(NSString *)urlString andPlistUrl:(NSString *)plistUrl andGameName:(NSString *)gameName andGameId:(NSString *)gameId andType:(NSString *)type {
+    if (!gameName ||!urlString ||!gameId ||!type || !plistUrl) {
         NSLog(@"-----格式无效------");
         return;
     }
     
     // 防止任务重复添加
-    for (OneDownloadItem * downloadItem in self.allItemArray)
-    {
-        if ([urlString isEqualToString:downloadItem.urlString])
-        {
+    for (OneDownloadItem * downloadItem in self.allItemArray) {
+        if ([urlString isEqualToString:downloadItem.urlString]) {
             NSLog(@"任务重复");
             return;
         }
     }
     
-    OneDownloadItem * oneDownloadItem = [[OneDownloadItem alloc]initWithUrl:urlString andPlistUrl:plistUrl andGameName:gameName andGameId:gameId andType:type];
+    OneDownloadItem * oneDownloadItem = [[OneDownloadItem alloc] initWithUrl:urlString plistUrl:plistUrl gameName:gameName gameId:gameId type:type];
     [self.allItemArray addObject:oneDownloadItem];      //先添加
     [self startDownload:oneDownloadItem];               //再下载
 }
 
 //开始下载
--(void)startDownload:(OneDownloadItem*)oneItem
-{
-    oneItem.downloadStatus = DownloadStatusWaiting;
+- (void)startDownload:(OneDownloadItem *)item {
+    item.downloadStatus = DownloadStatusWaiting;
     [self updateProcessList];
 }
 
 //暂停下载
--(void)pauseDownload:(OneDownloadItem*)oneItem
-{
-    oneItem.downloadStatus = DownloadStatusPause;
+- (void)pauseDownload:(OneDownloadItem *)item {
+    item.downloadStatus = DownloadStatusPause;
     [self updateProcessList];
 }
 
 //完成下载
--(void)callbackDownloadComplete:(OneDownloadItem*)oneItem
-{
+- (void)callbackDownloadComplete:(OneDownloadItem *)item {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProcessList];           //进行下一个队列
-        if(self.completeBlock) self.completeBlock(oneItem);
+        if (self.completeBlock) self.completeBlock(item);
     });
 }
 
 //处理队列
--(void)updateProcessList
-{
+- (void)updateProcessList {
     //先处理所有的暂停操作
-    for(OneDownloadItem * oneItem in self.allItemArray)
-    {
-        if(oneItem.downloadStatus == DownloadStatusPause)
-        {
-            [oneItem pauseModelDownload];
+    for (OneDownloadItem * oneItem in self.allItemArray) {
+        if (oneItem.downloadStatus == DownloadStatusPause) {
+            [oneItem pause];
         }
     }
     
     //当前下载数 小于 下载总数的 才处理
-    for(OneDownloadItem * oneItem in self.allItemArray)
-    {
+    for (OneDownloadItem * item in self.allItemArray) {
         int nowDowningInt = [self nowDowningNum];
-        if(nowDowningInt < MAX_DOWNLOAD_NUM)
-        {
-            if(oneItem.downloadStatus == DownloadStatusWaiting)
-            {
-                [oneItem startModelDownload];
+        if (nowDowningInt < MAX_DOWNLOAD_NUM) {
+            if (item.downloadStatus == DownloadStatusWaiting) {
+                [item start];
                 nowDowningInt ++;
             }
         }
     }
 }
 
--(int)nowDowningNum
-{
+- (int)nowDowningNum {
     int tempNow = 0;
-    for(OneDownloadItem * oneItem in self.allItemArray)
-    {
-        if(oneItem.downloadStatus == DownloadStatusDownloading)
-        {
+    for (OneDownloadItem * oneItem in self.allItemArray) {
+        if (oneItem.downloadStatus == DownloadStatusDownloading) {
             tempNow ++;
         }
     }
@@ -167,46 +144,39 @@ static DownloadManager *_dataCenter = nil;
 }
 
 //安装ipa
--(void)installIpaWithDownloadItem:(OneDownloadItem*)oneItem
-{
-    NSString * plistStr = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",oneItem.plistUrl];
+- (void)installIpaWithDownloadItem:(OneDownloadItem *)item {
+    NSString * plistStr = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@", item.plistUrl];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:plistStr]];
     NSLog(@"安装plistStr======%@",plistStr);
 }
 
 //删除一个下载项
--(void)removeItem:(OneDownloadItem*)oneItem
-{
-    [self pauseDownload:oneItem];       //先暂停
-    [self.allItemArray removeObject:oneItem];   //总数组删除这个元素
-    [self deleteFile:oneItem.saveName];         //删除对应的文件
+- (void)removeItem:(OneDownloadItem *)item {
+    [self pauseDownload:item];       //先暂停
+    [self.allItemArray removeObject:item];   //总数组删除这个元素
+    [self deleteFile:item.saveName];         //删除对应的文件
     [self saveArchiverAndUpdateUI];             //保存刷新界面
+    [self updateProgress];
 }
 
 /**文件存放路径*/
--(NSString*)getFilePath:(NSString*)saveName
-{
-//    NSLog(@"FilePath====%@",[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:saveName]);
-    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:saveName];
+- (NSString *)getFilePath:(NSString *)saveName {
+    return [self.storagePath stringByAppendingPathComponent:saveName];
 }
 
 //删除沙盒文件
--(void)deleteFile:(NSString*)fileName
-{
+- (void)deleteFile:(NSString *)fileName {
     NSString * delPath = [self getFilePath:fileName];
-    BOOL isHave=[[NSFileManager defaultManager] fileExistsAtPath:delPath];
-    if (!isHave)
-    {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL exists = [fileManager fileExistsAtPath:delPath];
+    if (!exists) {
         NSLog(@"no have file");
         return;
-    }else {
-        BOOL isDel= [[NSFileManager defaultManager] removeItemAtPath:delPath error:nil];
-        if (isDel)
-        {
+    } else {
+        BOOL res = [fileManager removeItemAtPath:delPath error:nil];
+        if (res) {
             NSLog(@"del success");
-        }
-        else
-        {
+        } else {
             NSLog(@"del fail");
         }
     }
@@ -214,58 +184,60 @@ static DownloadManager *_dataCenter = nil;
 
 
 /**已经下载的文件长度*/
--(NSInteger)getAlreadyDownloadLength:(NSString*)saveName
-{
-    return [[[NSFileManager defaultManager]attributesOfItemAtPath:[self getFilePath:saveName] error:nil][NSFileSize] integerValue];
+- (NSInteger)getAlreadyDownloadLength:(NSString *)saveName {
+    return [[[NSFileManager defaultManager] attributesOfItemAtPath:[self getFilePath:saveName] error:nil][NSFileSize] integerValue];
 }
 
 
 /**文件总长度字典存放的路径*/
--(NSString *)getAllItemArrayPath
-{
-    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"allItemArray.data"];
+- (NSString *)getAllItemArrayPath {
+    return [self.storagePath stringByAppendingPathComponent:@"allItemArray.data"];
 }
 
 //更新下载项的状态，并保存和更新界面
--(void)updateModel:(OneDownloadItem*)oneModel andStatus:(DownloadStatus)downloadStatus
-{
-    oneModel.downloadStatus = downloadStatus;
+- (void)updateModel:(OneDownloadItem *)item andStatus:(DownloadStatus)downloadStatus {
+    item.downloadStatus = downloadStatus;
     [self saveArchiverAndUpdateUI];
 }
 
 //所有下载item归档
--(void)saveArchiverAndUpdateUI
-{
+- (void)saveArchiverAndUpdateUI {
     [NSKeyedArchiver archiveRootObject:self.allItemArray toFile:[self getAllItemArrayPath]];
+}
+
+- (void)updateProgress {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if(self.progressBlock) self.progressBlock(self.allItemArray);  //回调界面
+        if (_progressBlock) _progressBlock(self.allItemArray);  //回调界面
     });
 }
 
 //反归档
--(NSMutableArray*)loadFromUnarchiver
-{
+- (NSMutableArray*)loadFromUnarchiver {
     NSMutableArray * decodedArray = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getAllItemArrayPath]];
-    if(!decodedArray)
-    {
+    if (!decodedArray) {
         decodedArray = [NSMutableArray array];
     }
     return decodedArray;
 }
 
 
-- (HTTPServer *)httpServer
-{
-    if (!_httpServer)
-    {
+- (HTTPServer *)httpServer {
+    if (!_httpServer) {
         _httpServer      = [HTTPServer new];
-        _httpServer.type = @"_tcp";
+        _httpServer.type = @"_http._tcp.";
         _httpServer.port = 10001;
-        _httpServer.documentRoot = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject;
+        _httpServer.documentRoot = self.storagePath;
         [_httpServer start:nil];
     }
     return _httpServer;
 }
 
+- (NSString *)storagePath {
+    if (!_storagePath) {
+        _storagePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject;
+    }
+    
+    return _storagePath;
+}
 
 @end
