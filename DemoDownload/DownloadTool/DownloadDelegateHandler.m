@@ -40,10 +40,9 @@
     //获取文件的全部长度
     NSLog(@"开始下载----Content-Length = %li",[response.allHeaderFields[@"Content-Length"] integerValue]);
     
-    _item.totalBytesWritten = [response.allHeaderFields[@"Content-Length"] integerValue] + [_downloadManager getAlreadyDownloadLength:_item.saveName];
-    _item.currentBytesWritten = [_downloadManager getAlreadyDownloadLength:_item.saveName];
+    _item.totalBytesWritten = [response.allHeaderFields[@"Content-Length"] integerValue] + _item.currentBytesWritten;
 
-    //保存当前的下载信息到沙盒 并刷新界面
+    //保存当前的下载信息到沙盒
     [_downloadManager updateModel:_item andStatus:DownloadStatusDownloading];
 
     //打开outputStream
@@ -57,8 +56,9 @@
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
     //把服务器传回的数据用stream写入沙盒中
-    [_stream write:data.bytes maxLength:data.length];
-    _item.currentBytesWritten = [_downloadManager getAlreadyDownloadLength:_item.saveName];//再获取当前文件已下载的长度
+    NSInteger len = data.length;
+    [_stream write:data.bytes maxLength:len];
+    _item.currentBytesWritten += len;
 
     float progress = 1.0 * _item.currentBytesWritten / _item.totalBytesWritten;
     _item.taskProgress = progress;

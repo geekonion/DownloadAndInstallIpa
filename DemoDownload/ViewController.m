@@ -53,7 +53,9 @@
 //下载这些地址只是测试
 //把下面的下载ipa地址和plist地址都改成你们自己的地址
 - (void)downloadHanlder:(UIButton*)btn {
-    [_downloadManager addDownloadTaskWithUrl:@"https://raw.githubusercontent.com/geekonion/ipaTest/master/SecMail.ipa" plistUrl:@"https://raw.githubusercontent.com/geekonion/ipaTest/master/test.plist" gameName:@"mail" gameId:@"SecMail" type:@"ipa"];
+    NSString *ipa = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/SecMail.ipa";
+    NSString *plist = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/test.plist";
+    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist gameName:@"mail" gameId:@"SecMail" type:@"ipa"];
 }
 
 - (UITableView *)tableView {

@@ -33,6 +33,8 @@
 **/
 - (BOOL)isDone;
 
+- (float)progress;
+
 @optional
 
 /**

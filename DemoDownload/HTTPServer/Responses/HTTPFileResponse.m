@@ -213,6 +213,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+- (float)progress {
+    return 1.0 * fileOffset / fileLength;
+}
+
 - (NSString *)filePath
 {
 	return filePath;

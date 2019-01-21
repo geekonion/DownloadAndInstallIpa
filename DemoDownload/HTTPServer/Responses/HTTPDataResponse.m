@@ -76,4 +76,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF | HTTP_LOG_FLAG_TRACE;
 	return result;
 }
 
+- (float)progress {
+    return 1.0 * offset / [data length];
+}
+
 @end

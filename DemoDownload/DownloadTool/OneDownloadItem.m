@@ -28,7 +28,6 @@ MJCodingImplementation
 
 - (OneDownloadItem * )initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type {
     if (self = [super init]) {
-        _downloadManager = [DownloadManager manager];
         self.gameName = gameName;
         self.gameId = gameId;
         self.type = type;
@@ -49,8 +48,6 @@ MJCodingImplementation
 
 
 - (void)creatTask {
-    //获取已下载的文件大小
-    NSInteger alreadyDownloadLength = [_downloadManager getAlreadyDownloadLength:self.saveName];
     
     DownloadDelegateHandler * delegateHandler = [[DownloadDelegateHandler alloc] initWithItem:self];
     _session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:delegateHandler delegateQueue:nil];
@@ -59,29 +56,31 @@ MJCodingImplementation
     //创建mutableRequest对象
     _mutableRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_urlString]];
     //设置request的请求头 Range:bytes=xxx-xxx
-    NSString *range = [NSString stringWithFormat:@"bytes=%ld-", alreadyDownloadLength];
+    NSString *range = [NSString stringWithFormat:@"bytes=%lld-", _currentBytesWritten];
     [_mutableRequest setValue:range forHTTPHeaderField:@"Range"];
     _task = [_session dataTaskWithRequest:_mutableRequest];
 }
 
 
 - (void)start {
-    NSError *error = nil;
+    _downloadManager = [DownloadManager manager];
+    
     //获取已下载的文件大小
-    NSInteger downloadedLen = [_downloadManager getAlreadyDownloadLength:_saveName];
+    _currentBytesWritten = [_downloadManager getAlreadyDownloadLength:_saveName];
     
     //说明已经下载完毕
-    if (downloadedLen && downloadedLen == _totalBytesWritten) {
+    if (_currentBytesWritten == _totalBytesWritten && _totalBytesWritten > 0) {
         //回调
         NSLog(@"finish");
         [_downloadManager updateModel:self andStatus:DownloadStatusComplete];
         return;
     }
     //如果已经存在的文件比目标大说明下载文件错误执行删除文件重新下载
-    else if (_totalBytesWritten < downloadedLen) {
+    else if (_totalBytesWritten < _currentBytesWritten) {
+        NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:[_downloadManager getFilePath:_saveName] error:&error];
         if (!error) {
-            downloadedLen = 0;
+            _currentBytesWritten = 0;
         } else {
             NSLog(@"创建任务失败请重新开始");
             //删除文件

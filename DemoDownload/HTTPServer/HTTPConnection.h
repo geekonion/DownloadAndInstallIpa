@@ -106,6 +106,8 @@
 - (NSData *)preprocessResponse:(HTTPMessage *)response;
 - (NSData *)preprocessErrorResponse:(HTTPMessage *)response;
 
+- (float)progress;
+
 - (void)finishResponse;
 
 - (BOOL)shouldDie;

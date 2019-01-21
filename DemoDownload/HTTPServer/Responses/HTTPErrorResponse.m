@@ -32,6 +32,10 @@
     return YES;
 }
 
+- (float)progress {
+    return 0;
+}
+
 - (NSInteger) status {
     return _status;
 }

@@ -1391,6 +1391,7 @@ static NSMutableArray *recentNonces;
 		{
 			long tag = [httpResponse isDone] ? HTTP_RESPONSE : HTTP_PARTIAL_RESPONSE_BODY;
 			[asyncSocket writeData:data withTimeout:TIMEOUT_WRITE_BODY tag:tag];
+            NSLog(@"***********%f", [httpResponse progress]);
 		}
 	}
 }

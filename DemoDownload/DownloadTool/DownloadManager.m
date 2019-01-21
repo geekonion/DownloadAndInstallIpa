@@ -198,6 +198,10 @@ static DownloadManager *_dataCenter = nil;
 - (void)updateModel:(OneDownloadItem *)item andStatus:(DownloadStatus)downloadStatus {
     item.downloadStatus = downloadStatus;
     [self saveArchiverAndUpdateUI];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (_progressBlock) _progressBlock(self.allItemArray);  //回调界面
+    });
 }
 
 //所有下载item归档
