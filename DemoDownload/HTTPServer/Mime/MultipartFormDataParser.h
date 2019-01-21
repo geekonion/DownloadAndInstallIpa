@@ -56,10 +56,10 @@ NSMutableData*						pendingData;
 - (id) initWithBoundary:(NSString *) boundary formEncoding:(NSStringEncoding) formEncoding;
 
 #if __has_feature(objc_arc_weak)
-    @property(weak, readwrite) id delegate;
+    @property (weak, readwrite) id delegate;
 #else
-    @property(unsafe_unretained, readwrite) id delegate;
+    @property (unsafe_unretained, readwrite) id delegate;
 #endif
-@property(readwrite) NSStringEncoding	formEncoding;
+@property (readwrite) NSStringEncoding	formEncoding;
 
 @end

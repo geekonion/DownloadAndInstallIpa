@@ -12,8 +12,8 @@
 #import "DownloadCell.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
-@property(nonatomic, strong) UITableView * tableView;
-@property(atomic, strong) NSArray * allItemModelArr;
+@property (nonatomic, strong) UITableView * tableView;
+@property (atomic, strong) NSArray * allItemModelArr;
 @end
 
 @implementation ViewController {

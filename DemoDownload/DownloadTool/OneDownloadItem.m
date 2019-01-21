@@ -57,9 +57,10 @@ MJCodingImplementation
     
     //这里是已经下载的小于总文件大小执行继续下载操作
     //创建mutableRequest对象
-    _mutableRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
+    _mutableRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_urlString]];
     //设置request的请求头 Range:bytes=xxx-xxx
-    [_mutableRequest setValue:[NSString stringWithFormat:@"bytes=%ld-",(long)alreadyDownloadLength] forHTTPHeaderField:@"Range"];
+    NSString *range = [NSString stringWithFormat:@"bytes=%ld-", alreadyDownloadLength];
+    [_mutableRequest setValue:range forHTTPHeaderField:@"Range"];
     _task = [_session dataTaskWithRequest:_mutableRequest];
 }
 
@@ -67,18 +68,18 @@ MJCodingImplementation
 - (void)start {
     NSError *error = nil;
     //获取已下载的文件大小
-    NSInteger downloadedLen = [_downloadManager getAlreadyDownloadLength:self.saveName];
+    NSInteger downloadedLen = [_downloadManager getAlreadyDownloadLength:_saveName];
     
     //说明已经下载完毕
-    if (downloadedLen && downloadedLen == self.totalBytesWritten) {
+    if (downloadedLen && downloadedLen == _totalBytesWritten) {
         //回调
         NSLog(@"finish");
         [_downloadManager updateModel:self andStatus:DownloadStatusComplete];
         return;
     }
     //如果已经存在的文件比目标大说明下载文件错误执行删除文件重新下载
-    else if (self.totalBytesWritten < downloadedLen) {
-        [[NSFileManager defaultManager] removeItemAtPath:[_downloadManager getFilePath:self.saveName] error:&error];
+    else if (_totalBytesWritten < downloadedLen) {
+        [[NSFileManager defaultManager] removeItemAtPath:[_downloadManager getFilePath:_saveName] error:&error];
         if (!error) {
             downloadedLen = 0;
         } else {
@@ -94,10 +95,7 @@ MJCodingImplementation
 }
 
 - (void)pause {
-    [_task cancel];
-    [_session invalidateAndCancel];
-    _session = nil;
-    _task = nil;
+    [_task suspend];
     [_downloadManager updateModel:self andStatus:DownloadStatusPause];
 }
 
