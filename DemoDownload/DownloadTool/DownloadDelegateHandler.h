@@ -11,7 +11,7 @@
 
 @interface DownloadDelegateHandler : NSObject<NSURLSessionDataDelegate>
 
-- (instancetype)initWithItem:(OneDownloadItem*)oneItem;
+- (instancetype)initWithItem:(OneDownloadItem *)oneItem;
 
 
 @end

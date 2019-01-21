@@ -1962,7 +1962,7 @@ enum GCDAsyncSocketConfig
 	return YES;
 }
 
-- (BOOL)connectToHost:(NSString*)host onPort:(uint16_t)port error:(NSError **)errPtr
+- (BOOL)connectToHost:(NSString *)host onPort:(uint16_t)port error:(NSError **)errPtr
 {
 	return [self connectToHost:host onPort:port withTimeout:-1 error:errPtr];
 }
@@ -6365,7 +6365,7 @@ static OSStatus SSLWriteFunction(SSLConnectionRef connection, const void *data, 
 			OSStatus status1 = noErr;
 			OSStatus status2 = noErr;
 			
-			SSLProtocol (^sslProtocolForString)(NSString*) = ^SSLProtocol (NSString *protocolStr) {
+			SSLProtocol (^sslProtocolForString)(NSString *) = ^SSLProtocol (NSString *protocolStr) {
 				
 				if ([protocolStr isEqualToString:@"kSSLProtocol3"])  return kSSLProtocol3;
 				if ([protocolStr isEqualToString:@"kTLSProtocol1"])  return kTLSProtocol1;

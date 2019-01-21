@@ -36,12 +36,12 @@
 }
 
 
--(void)initData
+- (void)initData
 {
     
 }
 
--(void)initView
+- (void)initView
 {
     _gameNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 100, 20)];
     _gameNameLabel.font = [UIFont systemFontOfSize:12];
@@ -85,7 +85,7 @@
 
 
 
--(void)updateCell:(OneDownloadItem*)oneDownloadItem
+- (void)updateCell:(OneDownloadItem *)oneDownloadItem
 {
     _myDownloadItem = oneDownloadItem;
     [_gameNameLabel setText:oneDownloadItem.gameName];
@@ -120,17 +120,17 @@
     }
 }
 
--(void)startDownload
+- (void)startDownload
 {
     [[DownloadManager manager] startDownload:_myDownloadItem];
 }
 
--(void)btnPauseDownload
+- (void)btnPauseDownload
 {
     [[DownloadManager manager] pauseDownload:_myDownloadItem];
 }
 
--(void)installHanler
+- (void)installHanler
 {
     [[DownloadManager manager] installIpaWithDownloadItem:_myDownloadItem];
 }

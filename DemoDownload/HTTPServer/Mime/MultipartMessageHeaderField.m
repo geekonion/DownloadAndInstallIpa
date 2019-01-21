@@ -14,7 +14,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 
 // helpers
 int findChar(const char* str,NSUInteger length, char c);
-NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncoding encoding);
+NSString * extractParamValue(const char* bytes, NSUInteger length, NSStringEncoding encoding);
 
 //-----------------------------------------------------------------
 // interface MultipartMessageHeaderField (private)
@@ -22,7 +22,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 
 
 @interface MultipartMessageHeaderField (private)
--(BOOL) parseHeaderValueBytes:(char*) bytes length:(NSUInteger) length encoding:(NSStringEncoding) encoding;
+- (BOOL) parseHeaderValueBytes:(char*) bytes length:(NSUInteger) length encoding:(NSStringEncoding) encoding;
 @end
 
 
@@ -79,7 +79,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 
 	// parse the "params" part of the header
 	if( ![self parseHeaderValueBytes:bytes length:length encoding:encoding] ) {
-		NSString* paramsStr = [[NSString alloc] initWithBytes:bytes length:length encoding:NSASCIIStringEncoding];
+		NSString * paramsStr = [[NSString alloc] initWithBytes:bytes length:length encoding:NSASCIIStringEncoding];
 		HTTPLogError(@"MultipartFormDataParser: Bad params for header with name '%@' and value '%@'",name,value);
 		HTTPLogError(@"MultipartFormDataParser: Params str: %@",paramsStr);
 
@@ -88,9 +88,9 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 	return self;
 }
 
--(BOOL) parseHeaderValueBytes:(char*) bytes length:(NSUInteger) length encoding:(NSStringEncoding) encoding {
+- (BOOL) parseHeaderValueBytes:(char*) bytes length:(NSUInteger) length encoding:(NSStringEncoding) encoding {
 	int offset = 0;
-	NSString* currentParam = nil;
+	NSString * currentParam = nil;
 	BOOL insideQuote = NO;
 	while( offset < length ) {
 		if( bytes[offset] == '\"' ) {
@@ -122,7 +122,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 				HTTPLogError(@"MultipartFormDataParser: Unexpected ';' when parsing header");
 				return NO;
 			}
-			NSString* paramValue = extractParamValue(bytes, offset,encoding);
+			NSString * paramValue = extractParamValue(bytes, offset,encoding);
 			 if( nil == paramValue ) {
 				HTTPLogWarn(@"MultipartFormDataParser: Failed to exctract paramValue for key %@ in header %@",currentParam,name);
 			}
@@ -152,7 +152,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 //		return YES;
 	}
 	if( currentParam ) {
-		NSString* paramValue = extractParamValue(bytes, length, encoding);
+		NSString * paramValue = extractParamValue(bytes, length, encoding);
 
 		if( nil == paramValue ) {
 			HTTPLogError(@"MultipartFormDataParser: Failed to exctract paramValue for key %@ in header %@",currentParam,name);
@@ -187,7 +187,7 @@ int findChar(const char* str, NSUInteger length, char c) {
 	return -1;
 }
 
-NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncoding encoding) {
+NSString * extractParamValue(const char* bytes, NSUInteger length, NSStringEncoding encoding) {
 	if( !length ) 
 		return nil;
 	NSMutableString* value = nil;

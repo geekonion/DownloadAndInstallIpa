@@ -37,37 +37,37 @@
  *  @param gameId   文件id
  *  @param type   文件类型 (ipa)
  */
-- (void)addDownloadTaskWithUrl:(NSString *)urlString andPlistUrl:(NSString*)plistUrl andGameName:(NSString*)gameName andGameId:(NSString*)gameId andType:(NSString*)type;
+- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type;
 
 /**
  * 由于要刷新tableview，所以下载过程通过这个block来刷新tablview
  */
-- (void)progressBlock:(void(^)(NSArray*allModelArr))progressBlock;
+- (void)progressBlock:(void(^)(NSArray *allModelArr))progressBlock;
 
 /**
  * 单个文件下载完毕后的回调
  */
-- (void)completeBlock:(void(^)(OneDownloadItem*oneItem))completeBlock;
+- (void)completeBlock:(void(^)(OneDownloadItem *oneItem))completeBlock;
 
 /**
  * 下载一个任务
  */
-- (void)startDownload:(OneDownloadItem*)oneItem;
+- (void)startDownload:(OneDownloadItem *)oneItem;
 
 /**
  * 暂停一个任务
  */
-- (void)pauseDownload:(OneDownloadItem*)oneItem;
+- (void)pauseDownload:(OneDownloadItem *)oneItem;
 
 /**
  * 安装ipa
  */
-- (void)installIpaWithDownloadItem:(OneDownloadItem*)oneItem;
+- (void)installIpaWithDownloadItem:(OneDownloadItem *)oneItem;
 
 /**
  * 删除item
  */
-- (void)removeItem:(OneDownloadItem*)oneItem;
+- (void)removeItem:(OneDownloadItem *)oneItem;
 
 
 //------------------------------------以下不需要主动调用---------------------------
@@ -76,22 +76,22 @@
  *
  * 一个任务完成下载后的回调
  */
-- (void)callbackDownloadComplete:(OneDownloadItem*)oneItem;
+- (void)callbackDownloadComplete:(OneDownloadItem *)oneItem;
 
 
 /**文件存放路径*/
-- (NSString*)getFilePath:(NSString*)saveName;
+- (NSString *)getFilePath:(NSString *)saveName;
 
 
 /**已经下载的文件长度*/
-- (NSInteger)getAlreadyDownloadLength:(NSString*)saveName;
+- (NSInteger)getAlreadyDownloadLength:(NSString *)saveName;
 
 
 /** 保存归档数组并刷新UI */
 - (void)saveArchiverAndUpdateUI;
 
 /** 更新下载项的状态，并保存和更新界面 **/
-- (void)updateModel:(OneDownloadItem*)oneModel andStatus:(DownloadStatus)downloadStatus;
+- (void)updateModel:(OneDownloadItem *)oneModel andStatus:(DownloadStatus)downloadStatus;
 - (void)updateProgress;
 
 @end

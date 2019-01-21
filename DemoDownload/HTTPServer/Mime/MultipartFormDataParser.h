@@ -53,7 +53,7 @@ NSMutableData*						pendingData;
 
 - (BOOL) appendData:(NSData*) data;
 
-- (id) initWithBoundary:(NSString*) boundary formEncoding:(NSStringEncoding) formEncoding;
+- (id) initWithBoundary:(NSString *) boundary formEncoding:(NSStringEncoding) formEncoding;
 
 #if __has_feature(objc_arc_weak)
     @property(weak, readwrite) id delegate;

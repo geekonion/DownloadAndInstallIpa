@@ -24,7 +24,7 @@ enum {
 @interface MultipartMessageHeader : NSObject {
     NSMutableDictionary*                    fields;
     int                                     encoding;
-    NSString*                               contentDispositionName;
+    NSString *                               contentDispositionName;
 }
 @property (strong,readonly) NSDictionary* fields;
 @property (readonly) int encoding;

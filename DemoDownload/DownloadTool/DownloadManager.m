@@ -73,7 +73,7 @@ static DownloadManager *_dataCenter = nil;
 }
 
 // 添加任务到任务列表中
-- (void)addDownloadTaskWithUrl:(NSString *)urlString andPlistUrl:(NSString *)plistUrl andGameName:(NSString *)gameName andGameId:(NSString *)gameId andType:(NSString *)type {
+- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type {
     if (!gameName ||!urlString ||!gameId ||!type || !plistUrl) {
         NSLog(@"-----格式无效------");
         return;

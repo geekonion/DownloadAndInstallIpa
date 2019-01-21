@@ -12,7 +12,7 @@
 @interface DownloadCell : UITableViewCell
 
 
--(void)updateCell:(OneDownloadItem*)oneDownloadItem;
+- (void)updateCell:(OneDownloadItem *)oneDownloadItem;
 
 
 
