@@ -26,10 +26,9 @@
 
 MJCodingImplementation
 
-- (OneDownloadItem * )initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type {
+- (instancetype)initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl name:(NSString *)name type:(NSString *)type {
     if (self = [super init]) {
-        self.gameName = gameName;
-        self.gameId = gameId;
+        self.name = name;
         self.type = type;
         self.urlString = url;
         self.plistUrl = plistUrl;
@@ -40,7 +39,7 @@ MJCodingImplementation
         self.taskDate = [NSDate date];
         self.taskSpeed = @"0kb/s";
         self.taskSize = @"0M";
-        self.saveName = [NSString stringWithFormat:@"%@.%@", self.gameId, self.type];
+        self.saveName = [NSString stringWithFormat:@"%@.%@", name, type];
     }
     
     return self;

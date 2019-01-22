@@ -20,22 +20,18 @@ typedef enum : NSUInteger
 @interface OneDownloadItem : NSObject
 
 /**
- *  保存在沙盒的名称,由gameId和type拼接 ，如：2624.ipa
+ *  保存在沙盒的名称,由name和type拼接 ，如：2624.ipa
  */
 @property (nonatomic, strong) NSString * saveName;
 /**
- *  游戏名称
+ *  应用名称
  */
-@property (nonatomic, strong) NSString * gameName;
+@property (nonatomic, strong) NSString * name;
 
 /**
  *  类型
  */
 @property (nonatomic, strong) NSString * type;
-/**
- *  游戏id
- */
-@property (nonatomic, strong) NSString * gameId;
 
 /**
  *  下载任务url
@@ -89,7 +85,7 @@ typedef enum : NSUInteger
 @property (nonatomic, assign) DownloadStatus downloadStatus;
 
 
-- (OneDownloadItem * )initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type;
+- (instancetype)initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl name:(NSString *)name type:(NSString *)type;
 
 
 - (void)pause;

@@ -13,8 +13,6 @@
 
 @interface DownloadManager()
 
-@property (nonatomic, copy) void (^completeBlock)(OneDownloadItem *oneItem);
-@property (nonatomic, copy) void (^progressBlock)(NSArray *allItemArr);
 @property (nonatomic, strong) HTTPServer * httpServer;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundIdentify;
 
@@ -62,33 +60,22 @@ static DownloadManager *_dataCenter = nil;
     return self;
 }
 
-//下载进度的回调
-- (void)progressBlock:(void(^)(NSArray *allModelArr))progressBlock {
-    self.progressBlock = progressBlock;
-}
-
-//下载完成的回调
-- (void)completeBlock:(void(^)(OneDownloadItem *oneItem))completeBlock {
-    self.completeBlock = completeBlock;
-}
-
 // 添加任务到任务列表中
-- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type {
-    if (!gameName ||!urlString ||!gameId ||!type || !plistUrl) {
-        NSLog(@"-----格式无效------");
+- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl name:(NSString *)name type:(NSString *)type {
+    if (!name || !urlString || !type || !plistUrl) {
+        NSLog(@"-----缺少参数-----");
         return;
     }
     
     // 防止任务重复添加
-    for (OneDownloadItem * downloadItem in self.allItemArray) {
-        if ([urlString isEqualToString:downloadItem.urlString]) {
-            NSLog(@"任务重复");
-            return;
-        }
+    NSArray *urls = [_allItemArray valueForKey:@"urlString"];
+    if ([urls containsObject:urlString]) {
+        NSLog(@"任务重复");
+        return;
     }
     
-    OneDownloadItem * oneDownloadItem = [[OneDownloadItem alloc] initWithUrl:urlString plistUrl:plistUrl gameName:gameName gameId:gameId type:type];
-    [self.allItemArray addObject:oneDownloadItem];      //先添加
+    OneDownloadItem * oneDownloadItem = [[OneDownloadItem alloc] initWithUrl:urlString plistUrl:plistUrl name:name type:type];
+    [_allItemArray addObject:oneDownloadItem];      //先添加
     [self startDownload:oneDownloadItem];               //再下载
 }
 
@@ -108,21 +95,21 @@ static DownloadManager *_dataCenter = nil;
 - (void)callbackDownloadComplete:(OneDownloadItem *)item {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProcessList];           //进行下一个队列
-        if (self.completeBlock) self.completeBlock(item);
+        if (_completeBlock) _completeBlock(item);
     });
 }
 
 //处理队列
 - (void)updateProcessList {
     //先处理所有的暂停操作
-    for (OneDownloadItem * oneItem in self.allItemArray) {
+    for (OneDownloadItem * oneItem in _allItemArray) {
         if (oneItem.downloadStatus == DownloadStatusPause) {
             [oneItem pause];
         }
     }
     
     //当前下载数 小于 下载总数的 才处理
-    for (OneDownloadItem * item in self.allItemArray) {
+    for (OneDownloadItem * item in _allItemArray) {
         int nowDowningInt = [self nowDowningNum];
         if (nowDowningInt < MAX_DOWNLOAD_NUM) {
             if (item.downloadStatus == DownloadStatusWaiting) {
@@ -135,7 +122,7 @@ static DownloadManager *_dataCenter = nil;
 
 - (int)nowDowningNum {
     int tempNow = 0;
-    for (OneDownloadItem * oneItem in self.allItemArray) {
+    for (OneDownloadItem * oneItem in _allItemArray) {
         if (oneItem.downloadStatus == DownloadStatusDownloading) {
             tempNow ++;
         }
@@ -143,17 +130,10 @@ static DownloadManager *_dataCenter = nil;
     return tempNow;
 }
 
-//安装ipa
-- (void)installIpaWithDownloadItem:(OneDownloadItem *)item {
-    NSString * plistStr = [NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@", item.plistUrl];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:plistStr]];
-    NSLog(@"安装plistStr======%@",plistStr);
-}
-
 //删除一个下载项
 - (void)removeItem:(OneDownloadItem *)item {
     [self pauseDownload:item];       //先暂停
-    [self.allItemArray removeObject:item];   //总数组删除这个元素
+    [_allItemArray removeObject:item];   //总数组删除这个元素
     [self deleteFile:item.saveName];         //删除对应的文件
     [self saveArchiverAndUpdateUI];             //保存刷新界面
     [self updateProgress];

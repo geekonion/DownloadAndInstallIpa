@@ -8,6 +8,7 @@
 
 #import "DownloadCell.h"
 #import "DownloadManager.h"
+#import "InstallTool.h"
 
 @interface DownloadCell()
 {
@@ -80,7 +81,7 @@
 - (void)updateCell:(OneDownloadItem *)oneDownloadItem
 {
     _myDownloadItem = oneDownloadItem;
-    [_gameNameLabel setText:oneDownloadItem.gameName];
+    [_gameNameLabel setText:oneDownloadItem.name];
     if(oneDownloadItem.totalBytesWritten > 0)
     {
         [_progressLabel setText:[NSString stringWithFormat:@"%.2f%%",((float)oneDownloadItem.currentBytesWritten/(float)oneDownloadItem.totalBytesWritten)*100]];
@@ -126,7 +127,7 @@
 
 - (void)installHanler
 {
-    [[DownloadManager manager] installIpaWithDownloadItem:_myDownloadItem];
+    [InstallTool installItem:_myDownloadItem];
 }
 
 @end

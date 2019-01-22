@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AC934D221F6E42E0005B866 /* InstallTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC934D121F6E42E0005B866 /* InstallTool.m */; };
 		C81F9FA41EAF4824008C7FEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F9FA31EAF4824008C7FEC /* main.m */; };
 		C81F9FA71EAF4824008C7FEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F9FA61EAF4824008C7FEC /* AppDelegate.m */; };
 		C81F9FAA1EAF4824008C7FEC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F9FA91EAF4824008C7FEC /* ViewController.m */; };
@@ -60,6 +61,8 @@
 
 /* Begin PBXFileReference section */
 		5AB8E78521F1FB6700315241 /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
+		5AC934D021F6E42E0005B866 /* InstallTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallTool.h; sourceTree = "<group>"; };
+		5AC934D121F6E42E0005B866 /* InstallTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallTool.m; sourceTree = "<group>"; };
 		C81F9F9F1EAF4824008C7FEC /* DemoDownload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoDownload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81F9FA31EAF4824008C7FEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C81F9FA51EAF4824008C7FEC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				C8406F571F282B9F003A098D /* DownloadManager.m */,
 				C8406F581F282B9F003A098D /* OneDownloadItem.h */,
 				C8406F591F282B9F003A098D /* OneDownloadItem.m */,
+				5AC934D021F6E42E0005B866 /* InstallTool.h */,
+				5AC934D121F6E42E0005B866 /* InstallTool.m */,
 			);
 			path = DownloadTool;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 				C87840F11EBAB9E8009E6F65 /* NSObject+MJCoding.m in Sources */,
 				C87BBE411EC2E88A00AEC464 /* DDFileLogger.m in Sources */,
 				C87840EB1EBAB9E8009E6F65 /* MJExtensionConst.m in Sources */,
+				5AC934D221F6E42E0005B866 /* InstallTool.m in Sources */,
 				C87BBE511EC2E88A00AEC464 /* HTTPErrorResponse.m in Sources */,
 				C8406F5C1F282B9F003A098D /* OneDownloadItem.m in Sources */,
 				C87840F01EBAB9E8009E6F65 /* NSObject+MJClass.m in Sources */,

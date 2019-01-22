@@ -22,6 +22,16 @@
 @property (nonatomic, strong) NSMutableArray * allItemArray;
 
 /**
+ * 由于要刷新tableview，所以下载过程通过这个block来刷新tablview
+ */
+@property (nonatomic, strong) void (^progressBlock)(NSArray<OneDownloadItem *> *allModelArr);
+
+/**
+ * 单个文件下载完毕后的回调
+ */
+@property (nonatomic, strong) void (^completeBlock)(OneDownloadItem *oneItem);
+
+/**
  *  任务下载器（单例模式）
  *
  *  @return self
@@ -33,21 +43,10 @@
  *
  *  @param urlString  ipa下载地址url
  *  @param plistUrl   plist文件url
- *  @param gameName   文件名
- *  @param gameId   文件id
+ *  @param name   文件名
  *  @param type   文件类型 (ipa)
  */
-- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl gameName:(NSString *)gameName gameId:(NSString *)gameId type:(NSString *)type;
-
-/**
- * 由于要刷新tableview，所以下载过程通过这个block来刷新tablview
- */
-- (void)progressBlock:(void(^)(NSArray *allModelArr))progressBlock;
-
-/**
- * 单个文件下载完毕后的回调
- */
-- (void)completeBlock:(void(^)(OneDownloadItem *oneItem))completeBlock;
+- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl name:(NSString *)name type:(NSString *)type;
 
 /**
  * 下载一个任务
@@ -58,11 +57,6 @@
  * 暂停一个任务
  */
 - (void)pauseDownload:(OneDownloadItem *)oneItem;
-
-/**
- * 安装ipa
- */
-- (void)installIpaWithDownloadItem:(OneDownloadItem *)oneItem;
 
 /**
  * 删除item

@@ -66,7 +66,7 @@
     //保存当前的下载信息到沙盒并刷新界面 回调界面现在的下载进度
     [_downloadManager updateProgress];
 
-    NSLog(@"name: %@, progress: %.2f%%", _item.gameName, 100.0 * progress);
+    NSLog(@"name: %@, progress: %.2f%%", _item.name, 100.0 * progress);
 }
 //任务完成后调用的代理方法
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {

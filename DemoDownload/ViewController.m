@@ -10,6 +10,7 @@
 #import "DownloadManager.h"
 #import "OneDownloadItem.h"
 #import "DownloadCell.h"
+#import "InstallTool.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView * tableView;
@@ -38,16 +39,15 @@
     
     //下载过程中，数据源刷新，表格刷新
     typeof(self) __weak weakSelf = self;
-    [_downloadManager progressBlock:^(NSArray *allModelArr) {
+    _downloadManager.progressBlock = ^(NSArray *allModelArr) {
         weakSelf.allItemModelArr = allModelArr;
         [weakSelf.tableView reloadData];
-    }];
+    };
     
     //下载完成自动安装，可以不选择自动安装
-    __weak DownloadManager * weak_downloadManager = _downloadManager;
-    [_downloadManager completeBlock:^(OneDownloadItem *oneItem) {
-        [weak_downloadManager installIpaWithDownloadItem:oneItem];
-    }];
+    _downloadManager.completeBlock = ^(OneDownloadItem *item) {
+        [InstallTool installItem:item];
+    };
 }
 
 //下载这些地址只是测试
@@ -57,7 +57,7 @@
 //    ipa = @"https://mos208.zhizhangyi.com:9070/uusafe/platform/filemanager/rest/downloadFromServer?fId=698446361015726080&userId=701159075341250560&companyCode=update&signature=REHOj2ZjXI3OqlyBX4hrnOchFe8%253D";
     NSString *plist = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/test.plist";
 //    plist = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/ipa.plist";
-    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist gameName:@"mail" gameId:@"SecMail" type:@"ipa"];
+    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist name:@"SecMail" type:@"ipa"];
 }
 
 - (UITableView *)tableView {
