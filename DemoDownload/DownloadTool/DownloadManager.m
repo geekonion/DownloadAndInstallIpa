@@ -238,7 +238,29 @@ static DownloadManager *_dataCenter = nil;
 
 - (NSString *)storagePath {
     if (!_storagePath) {
-        _storagePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject;
+        NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject;
+        NSString *ipaPath = [cachePath stringByAppendingPathComponent:@"UUIPAToInstall"];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL isDirectory = NO;
+        BOOL exists = [fileManager fileExistsAtPath:ipaPath isDirectory:&isDirectory];
+        if (!exists) {
+            NSError *error = nil;
+            [fileManager createDirectoryAtPath:ipaPath withIntermediateDirectories:YES attributes:nil error:&error];
+            if (error) {
+                NSLog(@"创建目录失败 %@", error);
+                _storagePath = cachePath;
+            } else {
+                _storagePath = ipaPath;
+            }
+        } else {
+            if (!isDirectory) {
+                NSLog(@"存在同名文件，不能创建目录！！！");
+                _storagePath = cachePath;
+            } else {
+                _storagePath = ipaPath;
+            }
+        }
     }
     
     return _storagePath;
