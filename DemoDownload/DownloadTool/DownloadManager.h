@@ -43,10 +43,9 @@
  *
  *  @param urlString  ipa下载地址url
  *  @param plistUrl   plist文件url
- *  @param name   文件名
- *  @param type   文件类型 (ipa)
+ *  @param name   文件名(含.ipa)
  */
-- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl name:(NSString *)name type:(NSString *)type;
+- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl name:(NSString *)name;
 
 /**
  * 下载一个任务

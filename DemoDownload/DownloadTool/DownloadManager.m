@@ -61,8 +61,8 @@ static DownloadManager *_dataCenter = nil;
 }
 
 // 添加任务到任务列表中
-- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl name:(NSString *)name type:(NSString *)type {
-    if (!name || !urlString || !type || !plistUrl) {
+- (void)addDownloadTaskWithUrl:(NSString *)urlString plistUrl:(NSString *)plistUrl name:(NSString *)name {
+    if (!name || !urlString || !plistUrl) {
         NSLog(@"-----缺少参数-----");
         return;
     }
@@ -74,7 +74,7 @@ static DownloadManager *_dataCenter = nil;
         return;
     }
     
-    OneDownloadItem * oneDownloadItem = [[OneDownloadItem alloc] initWithUrl:urlString plistUrl:plistUrl name:name type:type];
+    OneDownloadItem * oneDownloadItem = [[OneDownloadItem alloc] initWithUrl:urlString plistUrl:plistUrl name:name];
     [_allItemArray addObject:oneDownloadItem];      //先添加
     [self startDownload:oneDownloadItem];               //再下载
 }
@@ -134,7 +134,7 @@ static DownloadManager *_dataCenter = nil;
 - (void)removeItem:(OneDownloadItem *)item {
     [self pauseDownload:item];       //先暂停
     [_allItemArray removeObject:item];   //总数组删除这个元素
-    [self deleteFile:item.saveName];         //删除对应的文件
+    [self deleteFile:item.name];         //删除对应的文件
     [self saveArchiverAndUpdateUI];             //保存刷新界面
     [self updateProgress];
 }

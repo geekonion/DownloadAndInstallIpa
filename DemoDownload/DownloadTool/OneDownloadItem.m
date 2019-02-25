@@ -26,10 +26,9 @@
 
 MJCodingImplementation
 
-- (instancetype)initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl name:(NSString *)name type:(NSString *)type {
+- (instancetype)initWithUrl:(NSString *)url plistUrl:(NSString *)plistUrl name:(NSString *)name {
     if (self = [super init]) {
         self.name = name;
-        self.type = type;
         self.urlString = url;
         self.plistUrl = plistUrl;
         self.taskProgress = 0.0f;
@@ -39,7 +38,6 @@ MJCodingImplementation
         self.taskDate = [NSDate date];
         self.taskSpeed = @"0kb/s";
         self.taskSize = @"0M";
-        self.saveName = [NSString stringWithFormat:@"%@.%@", name, type];
     }
     
     return self;
@@ -65,7 +63,7 @@ MJCodingImplementation
     _downloadManager = [DownloadManager manager];
     
     //获取已下载的文件大小
-    _currentBytesWritten = [_downloadManager getAlreadyDownloadLength:_saveName];
+    _currentBytesWritten = [_downloadManager getAlreadyDownloadLength:_name];
     
     //说明已经下载完毕
     if (_currentBytesWritten == _totalBytesWritten && _totalBytesWritten > 0) {
@@ -77,7 +75,7 @@ MJCodingImplementation
     //如果已经存在的文件比目标大说明下载文件错误执行删除文件重新下载
     else if (_totalBytesWritten < _currentBytesWritten) {
         NSError *error = nil;
-        [[NSFileManager defaultManager] removeItemAtPath:[_downloadManager getFilePath:_saveName] error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:[_downloadManager getFilePath:_name] error:&error];
         if (!error) {
             _currentBytesWritten = 0;
         } else {

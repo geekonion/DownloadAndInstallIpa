@@ -57,7 +57,7 @@
 //    ipa = @"https://mos208.zhizhangyi.com:9070/uusafe/platform/filemanager/rest/downloadFromServer?fId=698446361015726080&userId=701159075341250560&companyCode=update&signature=REHOj2ZjXI3OqlyBX4hrnOchFe8%253D";
     NSString *plist = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/test.plist";
 //    plist = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/ipa.plist";
-    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist name:@"SecMail" type:@"ipa"];
+    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist name:@"SecMail.ipa"];
 }
 
 - (UITableView *)tableView {

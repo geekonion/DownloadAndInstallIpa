@@ -94,7 +94,7 @@
 - (NSOutputStream *)stream {
     if (!_stream) {
         
-        _stream = [[NSOutputStream alloc]initToFileAtPath:[[DownloadManager manager] getFilePath:_item.saveName] append:YES];
+        _stream = [[NSOutputStream alloc]initToFileAtPath:[[DownloadManager manager] getFilePath:_item.name] append:YES];
     }
     return _stream;
 }
