@@ -67,6 +67,7 @@
 //安装证书，
 - (void)installMdm:(UIButton *)btn {
     //相同PayloadIdentifier可以覆盖，描述文件移除密码RemovalPassword字段
+    //mobileconfig可以用Apple configurator 2生成，也可以根据策略动态生成
     NSString *urlStr = [NSString stringWithFormat:@"http://127.0.0.1:%d/MDM.mobileconfig", [_downloadManager listeningPort]];
     NSURL *url = [NSURL URLWithString:urlStr];
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];

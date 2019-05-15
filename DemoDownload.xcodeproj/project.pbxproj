@@ -64,6 +64,7 @@
 /* Begin PBXFileReference section */
 		5AAA2CC0228BB80400599158 /* MDM.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MDM.mobileconfig; sourceTree = "<group>"; };
 		5AAA2CC2228BC4D900599158 /* MDM1.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MDM1.mobileconfig; sourceTree = "<group>"; };
+		5AAA2CC4228BCF4A00599158 /* ipa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ipa.plist; sourceTree = "<group>"; };
 		5AB8E78521F1FB6700315241 /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		5AC934D021F6E42E0005B866 /* InstallTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallTool.h; sourceTree = "<group>"; };
 		5AC934D121F6E42E0005B866 /* InstallTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallTool.m; sourceTree = "<group>"; };
@@ -178,6 +179,7 @@
 		C81F9F961EAF4824008C7FEC = {
 			isa = PBXGroup;
 			children = (
+				5AAA2CC4228BCF4A00599158 /* ipa.plist */,
 				5AB8E78521F1FB6700315241 /* Property List.plist */,
 				5AAA2CC0228BB80400599158 /* MDM.mobileconfig */,
 				5AAA2CC2228BC4D900599158 /* MDM1.mobileconfig */,

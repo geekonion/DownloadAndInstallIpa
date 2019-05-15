@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>items</key>
+    <array>
+      <dict>
+        <key>assets</key>
+        <array>
+          <dict>
+            <key>kind</key>
+            <string>software-package</string>
+            <key>url</key>
+            <string><![CDATA[https://mos208.zhizhangyi.com:9070/uusafe/platform/filemanager/rest/downloadFromServer?fId=698446361015726080&userId=701159075341250560&companyCode=update&signature=REHOj2ZjXI3OqlyBX4hrnOchFe8%253D]]></string>
+          </dict>
+          <dict>
+            <key>kind</key>
+            <string>display-image</string>
+            <key>url</key>
+            <string><![CDATA[https://mos208.zhizhangyi.com:9070/uusafe/platform/filemanager/rest/downloadFromServer?fId=684971523517296640&userId=701159075341250560&companyCode=update&signature=iH3ocehssej7L%252FtwwxcIR2HQ570%253D]]></string>
+          </dict>
+          <dict>
+            <key>kind</key>
+            <string>full-size-image</string>
+            <key>url</key>
+            <string><![CDATA[https://mos208.zhizhangyi.com:9070/uusafe/platform/filemanager/rest/downloadFromServer?fId=684971523517296640&userId=701159075341250560&companyCode=update&signature=iH3ocehssej7L%252FtwwxcIR2HQ570%253D]]></string>
+          </dict>
+        </array>
+        <key>metadata</key>
+        <dict>
+          <key>bundle-identifier</key>
+          <string>com.uusafe.secmail</string>
+          <key>bundle-version</key>
+          <string>2.7.72</string>
+          <key>kind</key>
+          <string>software</string>
+          <key>title</key>
+          <string>安全邮件</string>
+        </dict>
+      </dict>
+    </array>
+  </dict>
+</plist>
