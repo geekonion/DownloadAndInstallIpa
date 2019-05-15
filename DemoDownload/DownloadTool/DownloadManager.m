@@ -132,10 +132,10 @@ static DownloadManager *_dataCenter = nil;
 
 //删除一个下载项
 - (void)removeItem:(OneDownloadItem *)item {
-    [self pauseDownload:item];       //先暂停
+    [self pauseDownload:item];           //先暂停
     [_allItemArray removeObject:item];   //总数组删除这个元素
     [self deleteFile:item.name];         //删除对应的文件
-    [self saveArchiverAndUpdateUI];             //保存刷新界面
+    [self saveArchiverAndUpdateUI];      //保存刷新界面
     [self updateProgress];
 }
 
@@ -209,7 +209,7 @@ static DownloadManager *_dataCenter = nil;
     if (!_httpServer) {
         _httpServer      = [HTTPServer new];
         _httpServer.type = @"_http._tcp.";
-        _httpServer.port = 10001;
+//        _httpServer.port = 100001;
         _httpServer.documentRoot = self.storagePath;
         [_httpServer start:nil];
     }
@@ -244,6 +244,10 @@ static DownloadManager *_dataCenter = nil;
     }
     
     return _storagePath;
+}
+
+- (UInt16)listeningPort {
+    return _httpServer.listeningPort;
 }
 
 @end

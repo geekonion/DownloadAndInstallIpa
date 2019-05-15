@@ -27,13 +27,19 @@
     _downloadManager = [DownloadManager manager];
     self.allItemModelArr = _downloadManager.allItemArray;
     
-    NSString * titleStr = @"下载安装";
     UIButton * downBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     downBtn.frame = CGRectMake(10, 30, 80, 30);
-    [downBtn setTitle:titleStr forState:UIControlStateNormal];
+    [downBtn setTitle:@"安装应用" forState:UIControlStateNormal];
     downBtn.backgroundColor = [UIColor redColor];
     [downBtn addTarget:self action:@selector(downloadHanlder:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:downBtn];
+    
+    UIButton * mdmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    mdmBtn.frame = CGRectMake(100, 30, 80, 30);
+    [mdmBtn setTitle:@"安装mdm" forState:UIControlStateNormal];
+    mdmBtn.backgroundColor = [UIColor redColor];
+    [mdmBtn addTarget:self action:@selector(installMdm:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:mdmBtn];
 
     [self.view addSubview:self.tableView];
     
@@ -53,11 +59,17 @@
 //下载这些地址只是测试
 //把下面的下载ipa地址和plist地址都改成你们自己的地址
 - (void)downloadHanlder:(UIButton*)btn {
-    NSString *ipa = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/SecMail.ipa";
-//    ipa = @"https://mos208.zhizhangyi.com:9070/uusafe/platform/filemanager/rest/downloadFromServer?fId=698446361015726080&userId=701159075341250560&companyCode=update&signature=REHOj2ZjXI3OqlyBX4hrnOchFe8%253D";
-    NSString *plist = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/test.plist";
-//    plist = @"https://raw.githubusercontent.com/geekonion/ipaTest/master/ipa.plist";
-    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist name:@"SecMail.ipa"];
+    NSString *ipa = @"";
+    NSString *plist = @"";
+    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist name:@"xxx.ipa"];
+}
+
+//安装证书，
+- (void)installMdm:(UIButton *)btn {
+    //相同PayloadIdentifier可以覆盖
+    NSString *urlStr = [NSString stringWithFormat:@"http://127.0.0.1:%d/MDM.mobileconfig", [_downloadManager listeningPort]];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
 - (UITableView *)tableView {

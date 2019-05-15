@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AAA2CC1228BB80500599158 /* MDM.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5AAA2CC0228BB80400599158 /* MDM.mobileconfig */; };
+		5AAA2CC3228BC4DA00599158 /* MDM1.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5AAA2CC2228BC4D900599158 /* MDM1.mobileconfig */; };
 		5AC934D221F6E42E0005B866 /* InstallTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC934D121F6E42E0005B866 /* InstallTool.m */; };
 		C81F9FA41EAF4824008C7FEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F9FA31EAF4824008C7FEC /* main.m */; };
 		C81F9FA71EAF4824008C7FEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F9FA61EAF4824008C7FEC /* AppDelegate.m */; };
@@ -60,6 +62,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5AAA2CC0228BB80400599158 /* MDM.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MDM.mobileconfig; sourceTree = "<group>"; };
+		5AAA2CC2228BC4D900599158 /* MDM1.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MDM1.mobileconfig; sourceTree = "<group>"; };
 		5AB8E78521F1FB6700315241 /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		5AC934D021F6E42E0005B866 /* InstallTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstallTool.h; sourceTree = "<group>"; };
 		5AC934D121F6E42E0005B866 /* InstallTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallTool.m; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				5AB8E78521F1FB6700315241 /* Property List.plist */,
+				5AAA2CC0228BB80400599158 /* MDM.mobileconfig */,
+				5AAA2CC2228BC4D900599158 /* MDM1.mobileconfig */,
 				C81F9FA11EAF4824008C7FEC /* DemoDownload */,
 				C81F9FA01EAF4824008C7FEC /* Products */,
 			);
@@ -412,6 +418,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -431,10 +438,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87BBE3E1EC2E88A00AEC464 /* About.txt in Resources */,
+				5AAA2CC1228BB80500599158 /* MDM.mobileconfig in Resources */,
 				C87840EA1EBAB9E8009E6F65 /* Info.plist in Resources */,
 				C81F9FB21EAF4824008C7FEC /* LaunchScreen.storyboard in Resources */,
 				C81F9FAF1EAF4824008C7FEC /* Assets.xcassets in Resources */,
 				C81F9FAD1EAF4824008C7FEC /* Main.storyboard in Resources */,
+				5AAA2CC3228BC4DA00599158 /* MDM1.mobileconfig in Resources */,
 				C87BBE461EC2E88A00AEC464 /* README.txt in Resources */,
 				C87BBE3C1EC2E88A00AEC464 /* About.txt in Resources */,
 			);

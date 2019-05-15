@@ -42,7 +42,7 @@
     [self.contentView addSubview:_gameNameLabel];
 
     _proView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
-    _proView.frame=CGRectMake(100, 20, 200, 50);
+    _proView.frame=CGRectMake(100, 20, 150, 50);
     //设置进度条颜色
     _proView.trackTintColor=[UIColor grayColor];
     //设置进度默认值，这个相当于百分比，范围在0~1之间，不可以设置最大最小值
@@ -52,25 +52,25 @@
     //设置进度值并动画显示
     [self.contentView addSubview:_proView];
     
-    _progressLabel = [[UILabel alloc]initWithFrame:CGRectMake(170, 20, 50, 20)];
+    _progressLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 20, 50, 20)];
     _progressLabel.font = [UIFont systemFontOfSize:12];
     _progressLabel.textColor = [UIColor blackColor];
     [self.contentView addSubview:_progressLabel];
     
     _startDownloadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _startDownloadBtn.frame = CGRectMake(320, 10, 50, 30);
+    _startDownloadBtn.frame = CGRectMake(260, 10, 50, 30);
     [_startDownloadBtn setTitle:@"下载" forState:UIControlStateNormal];
     _startDownloadBtn.backgroundColor = [UIColor grayColor];
     [_startDownloadBtn addTarget:self action:@selector(startDownload) forControlEvents:UIControlEventTouchUpInside];
     
     _pauseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _pauseBtn.frame = CGRectMake(320, 10, 50, 30);
+    _pauseBtn.frame = CGRectMake(260, 10, 50, 30);
     [_pauseBtn setTitle:@"暂停" forState:UIControlStateNormal];
     _pauseBtn.backgroundColor = [UIColor grayColor];
     [_pauseBtn addTarget:self action:@selector(btnPauseDownload) forControlEvents:UIControlEventTouchUpInside];
     
     _installBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _installBtn.frame = CGRectMake(320, 10, 50, 30);
+    _installBtn.frame = CGRectMake(260, 10, 50, 30);
     [_installBtn setTitle:@"安装" forState:UIControlStateNormal];
     _installBtn.backgroundColor = [UIColor grayColor];
     [_installBtn addTarget:self action:@selector(installHanler) forControlEvents:UIControlEventTouchUpInside];

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
+#import "DownloadManager.h"
 static NSString *const PurpleTag = @"PurpleTag";
 
 @interface AppDelegate ()
@@ -19,10 +20,26 @@ static NSString *const PurpleTag = @"PurpleTag";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-      UIColor *purple = [UIColor colorWithRed:(64/255.0) green:(0/255.0) blue:(128/255.0) alpha:1.0];
+    NSString *toPath = [DownloadManager manager].storagePath;
+    UIColor *purple = [UIColor colorWithRed:(64/255.0) green:(0/255.0) blue:(128/255.0) alpha:1.0];
     DDTTYLogger *logger = [DDTTYLogger sharedInstance];
     [logger setForegroundColor:purple backgroundColor:nil forTag:PurpleTag];
     [DDLog addLogger:logger];
+    
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSString *cfg = [path stringByAppendingPathComponent:@"MDM.mobileconfig"];
+    NSString *cfg1 = [path stringByAppendingPathComponent:@"MDM1.mobileconfig"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSError *error = nil;
+    NSString *cfgPath = [toPath stringByAppendingPathComponent:@"MDM.mobileconfig"];
+    NSString *cfgPath1 = [toPath stringByAppendingPathComponent:@"MDM1.mobileconfig"];
+    
+    [fileManager removeItemAtPath:cfgPath error:&error];
+    [fileManager removeItemAtPath:cfgPath1 error:&error];
+    [fileManager copyItemAtPath:cfg toPath:cfgPath error:&error];
+    [fileManager copyItemAtPath:cfg1 toPath:cfgPath1 error:&error];
     
     return YES;
 }

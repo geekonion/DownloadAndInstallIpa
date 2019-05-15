@@ -87,4 +87,6 @@
 - (void)updateModel:(OneDownloadItem *)oneModel andStatus:(DownloadStatus)downloadStatus;
 - (void)updateProgress;
 
+- (UInt16)listeningPort;
+
 @end
