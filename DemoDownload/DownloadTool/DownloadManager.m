@@ -209,7 +209,7 @@ static DownloadManager *_dataCenter = nil;
     if (!_httpServer) {
         _httpServer      = [HTTPServer new];
         _httpServer.type = @"_http._tcp.";
-//        _httpServer.port = 100001;
+        _httpServer.port = 10001;
         _httpServer.documentRoot = self.storagePath;
         [_httpServer start:nil];
     }

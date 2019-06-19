@@ -59,9 +59,9 @@
 //下载这些地址只是测试
 //把下面的下载ipa地址和plist地址都改成你们自己的地址
 - (void)downloadHanlder:(UIButton*)btn {
-    NSString *ipa = @"";
-    NSString *plist = @"";
-    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist name:@"xxx.ipa"];
+    NSString *ipa = @"https://raw.githubusercontent.com/gaopc/installApp/master/SecMail.ipa";
+    NSString *plist = @"https://raw.githubusercontent.com/gaopc/installApp/master/uusafe.plist";
+    [_downloadManager addDownloadTaskWithUrl:ipa plistUrl:plist name:@"SecMail.ipa"];
 }
 
 //安装证书，
